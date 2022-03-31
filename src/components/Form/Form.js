@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Button, TextField } from "@mui/material";
+import SendIcon from '@material-ui/icons/Send';
 
 export const Form = ({ onSubmit }) => {
     const [value, setValue] = useState("");
@@ -16,8 +18,15 @@ export const Form = ({ onSubmit }) => {
 
     return (
         <form onSubmit={ handleSubmit }>
-            <input value={ value } onChange={ handleChange } type="text" />
-            <input type="submit" />
+            <TextField
+                id="outlined-basic"
+                label="Message"
+                variant="outlined"
+                value={ value }
+                onChange={ handleChange }
+                type="text"
+            />
+            <Button type="submit" variant="contained" endIcon={<SendIcon />}>Send</Button>
         </form>
     );
 };
