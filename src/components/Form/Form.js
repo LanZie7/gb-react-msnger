@@ -39,7 +39,7 @@ export const Form = ({ onSubmit }) => {
                 value={ value }
                 onChange={ handleChange }
                 type="text"
-                ref={ inputRef }
+                inputRef={ inputRef }
             />
             <Button className="sendBtn" type="submit" variant="contained" endIcon={<SendIcon />}>Send</Button>
         </form>

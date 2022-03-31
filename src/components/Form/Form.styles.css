@@ -12,7 +12,6 @@
 
 }
 
-.sendBtn {
-    margin-left: 20px;
-
+.sendBtn.MuiButton-root {
+    margin-left: 10px;
 }

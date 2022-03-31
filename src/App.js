@@ -45,7 +45,7 @@ function App() {
 
 
   return (
-    <div className="App" ref={wrapperRef} style={{ overflow: "auto" }}>
+    <div className="App" ref={ wrapperRef } style={{ overflow: "auto" }}>
       <MessageList messages={ messages } />
         <Form onSubmit={ sendMsg } />
         {/*<button onClick={ handleScroll }>Scroll</button>*/}
