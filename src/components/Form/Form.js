@@ -1,9 +1,14 @@
-import { useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import { Button, TextField } from "@mui/material";
 import SendIcon from '@material-ui/icons/Send';
 
+import './Form.styles.css';
+
+
 export const Form = ({ onSubmit }) => {
     const [value, setValue] = useState("");
+
+    const inputRef = useRef();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -16,8 +21,17 @@ export const Form = ({ onSubmit }) => {
         setValue(e.target.value);
     };
 
+    useEffect(() => {
+        console.log("did mount", inputRef);
+        inputRef.current?.focus();
+
+        return () => {
+            console.log("will mount");
+        };
+    }, []);
+
     return (
-        <form onSubmit={ handleSubmit }>
+        <form className="msgForm" onSubmit={ handleSubmit }>
             <TextField
                 id="outlined-basic"
                 label="Message"
@@ -25,8 +39,9 @@ export const Form = ({ onSubmit }) => {
                 value={ value }
                 onChange={ handleChange }
                 type="text"
+                ref={ inputRef }
             />
-            <Button type="submit" variant="contained" endIcon={<SendIcon />}>Send</Button>
+            <Button className="sendBtn" type="submit" variant="contained" endIcon={<SendIcon />}>Send</Button>
         </form>
     );
 };
