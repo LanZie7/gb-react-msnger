@@ -1,18 +1,33 @@
-import './App.css';
 import { useEffect, useRef, useState } from "react";
-import { AUTHORS } from "./utils/constants";
-import { MessageList } from "./components/MessageList/MessageList";
-import { Form } from "./components/Form/Form";
-import { ChatList } from "./components/ChatList/ChatList";
-import { theme } from "./components/Theme/Theme";
-import { ThemeProvider } from "@mui/material";
+import { AUTHORS } from "../../utils/constants";
+import { MessageList } from "../../components/MessageList/MessageList";
+import { Form } from "../../components/Form/Form";
+
+const chats = [
+    {
+        name: "ReactChat",
+        id: "reactChat",
+    },
+    {
+        name: "VueChat",
+        id: "vueChat",
+    },
+    {
+        name: "AngularChat",
+        id: "angularChat",
+    },
+];
+
+const initMsgs = {
+    reactChat: [],
+    vueChat: [],
+    angularChat: [],
+};
 
 
-function App() {
-    const[messages, setMsgs] = useState([]);
-    const [ chats ] = (useState([]));
+export function Chat() {
 
-    // const theme = unstable_createMuiStrictModeTheme();
+    const [ messages, setMsgs ] = useState(initMsgs);
 
     const timeout = useRef();
     const wrapperRef = useRef();
@@ -50,17 +65,12 @@ function App() {
     // };
 
 
-
-  return (
-      <ThemeProvider theme={theme}>
-        <div className="App" ref={ wrapperRef } style={{ overflow: "auto", margin: "20px" }}>
-            <ChatList />
+    return (
+        <div className="App" ref={ wrapperRef } style={{ overflow: "auto" }}>
             <MessageList messages={ messages } />
             <Form onSubmit={ sendMsg } />
             {/*<button onClick={ handleScroll }>Scroll</button>*/}
         </div>
-      </ThemeProvider>
-  );
-}
+    );
 
-export default App;
+}
