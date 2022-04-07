@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, TextField } from "@mui/material";
 import SendIcon from '@material-ui/icons/Send';
 
@@ -22,12 +22,7 @@ export const Form = ({ onSubmit }) => {
     };
 
     useEffect(() => {
-        console.log("did mount", inputRef);
         inputRef.current?.focus();
-
-        return () => {
-            console.log("will mount");
-        };
     }, []);
 
     return (

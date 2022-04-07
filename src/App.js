@@ -1,66 +1,44 @@
-import './App.css';
-import { useEffect, useRef, useState } from "react";
-import { AUTHORS } from "./utils/constants";
-import { MessageList } from "./components/MessageList/MessageList";
-import { Form } from "./components/Form/Form";
+import React from "react";
+import { BrowserRouter, Route, NavLink } from "react-router-dom";
+import { Routes } from "react-router";
 import { ChatList } from "./components/ChatList/ChatList";
-import { theme } from "./components/Theme/Theme";
-import { ThemeProvider } from "@mui/material";
+import { Chat } from "./screens/Chat/Chat";
 
+import './App.css';
+
+
+const Home = () => <h3>Hope Page</h3>;
 
 function App() {
-    const[messages, setMsgs] = useState([]);
-    const [ chats ] = (useState([]));
-
-    // const theme = unstable_createMuiStrictModeTheme();
-
-    const timeout = useRef();
-    const wrapperRef = useRef();
-
-    const addMsg = (addText) => {
-        setMsgs([...messages, addText]);
-    }
-
-    const sendMsg = (sendText) => {
-        addMsg({
-            author: AUTHORS.person,
-            text: sendText,
-            id: `msg-${Date.now()}`,
-        });
-    };
-
-    useEffect(() => {
-        if (messages[messages.length - 1]?.author === AUTHORS.person) {
-            timeout.current = setTimeout(() => {
-                addMsg({
-                    author: AUTHORS.robot,
-                    text: "Hello, " + AUTHORS.person + "!" ,
-                    id: `msg=${Date.now()}`,
-                });
-            }, 1000);
-        }
-
-        return () => {
-            clearTimeout(timeout.current);
-        };
-    }, [messages]);
-
-    // const handleScroll = () => {
-    //     wrapperRef.current?.scrollTo({ x: 0, y: 0 });
-    // };
-
-
-
-  return (
-      <ThemeProvider theme={theme}>
-        <div className="App" ref={ wrapperRef } style={{ overflow: "auto", margin: "20px" }}>
-            <ChatList />
-            <MessageList messages={ messages } />
-            <Form onSubmit={ sendMsg } />
-            {/*<button onClick={ handleScroll }>Scroll</button>*/}
-        </div>
-      </ThemeProvider>
-  );
+  return  (
+    <BrowserRouter>
+      <ul>
+        <li>
+          <NavLink
+            to="/"
+            style={({ isActive }) => ({ color: isActive ? "#757de8" : "#534bae" })}
+          >
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="chat"
+            style={({ isActive }) => ({ color: isActive ? "#757de8" : "#534bae" })}
+          >
+            Chats
+          </NavLink>
+        </li>
+      </ul>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/chat" element={<ChatList />}>
+          <Route path=":id" element={<Chat />} />
+        </Route>
+        {/*<Route path="*" element={<h4>404 Error</h4>} />*/}
+      </Routes>
+    </BrowserRouter>
+    )
 }
 
 export default App;
