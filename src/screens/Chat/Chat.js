@@ -79,7 +79,7 @@ export function Chat() {
     return (
         <ThemeProvider theme={theme}>
             <div className="App" ref={ wrapperRef } style={{ overflow: "auto", margin: "20px" }}>
-                <MessageList messages={ messages } />
+                <MessageList messages={ messages[id] } />
                 <Form onSubmit={ sendMsg } />
                 {/*<button onClick={ handleScroll }>Scroll</button>*/}
             </div>
