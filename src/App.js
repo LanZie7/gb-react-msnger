@@ -44,7 +44,12 @@ function App() {
   }
 
   const addMsg = (addText, id) => {
-    setMsgs({...messages, [id]: [...messages[id], addText] });
+    setMsgs({ ...messages, [id]: [...messages[id], addText] });
+  };
+
+  const addChat = (newChat) => {
+    setChats(prevChats => [...prevChats, newChat]);
+    setMsgs(prevMsgs => ({ ...prevMsgs, [newChat.id]: [] }))
   };
 
   return  (
@@ -80,7 +85,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/chat" element={<ChatList chats={chats} />}>
+            <Route path="/chat" element={<ChatList chats={chats} addChat={addChat} />}>
               <Route path=":id" element={<Chat messages={messages} addMsg={addMsg} />} />
             </Route>
             <Route path="*" element={<h4>404 Error</h4>} />
