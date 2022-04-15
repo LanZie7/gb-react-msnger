@@ -52,6 +52,16 @@ function App() {
     setMsgs(prevMsgs => ({ ...prevMsgs, [newChat.id]: [] }))
   };
 
+  const deleteChat = (id) => {
+    setChats((prevChats) => prevChats.filter((chat) => chat.id !== id));
+    setMsgs(prevMsgs => {
+      const newMsgs = {...prevMsgs};
+      delete newMsgs[id];
+      return newMsgs;
+    })
+  };
+
+
   return  (
     <Provider store={store}>
       <ThemeContext.Provider value={{ theme, changeTheme: toggleTheme }}>
@@ -85,7 +95,13 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/chat" element={<ChatList chats={chats} addChat={addChat} />}>
+            <Route path="/chat" element={
+              <ChatList
+                chats={chats}
+                addChat={addChat}
+                deleteChat={deleteChat}
+              />
+            }>
               <Route path=":id" element={<Chat messages={messages} addMsg={addMsg} />} />
             </Route>
             <Route path="*" element={<h4>404 Error</h4>} />
