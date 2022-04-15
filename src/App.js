@@ -10,16 +10,42 @@ import { ThemeContext } from "./utils/ThemeContext";
 import { store } from "./store";
 
 import './App.css';
+import {Home} from "./screens/Home/Home";
 
 
-const Home = () => <h3>Hope Page</h3>;
+const initialChats = [
+  {
+    name: "ReactChat",
+    id: "reactChat",
+  },
+  {
+    name: "VueChat",
+    id: "vueChat",
+  },
+  {
+    name: "AngularChat",
+    id: "angularChat",
+  },
+];
+
+const initialMsgs = initialChats.reduce((acc, chat) => {
+  acc[chat.id] = [];
+  return acc;
+}, {});
 
 function App() {
   const [theme, setTheme] = useState("dark");
 
+  const [chats, setChats] = useState(initialChats);
+  const [messages, setMsgs] = useState(initialMsgs);
+
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
   }
+
+  const addMsg = (addText, id) => {
+    setMsgs({...messages, [id]: [...messages[id], addText] });
+  };
 
   return  (
     <Provider store={store}>
@@ -54,8 +80,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/chat" element={<ChatList />}>
-              <Route path=":id" element={<Chat />} />
+            <Route path="/chat" element={<ChatList chats={chats} />}>
+              <Route path=":id" element={<Chat messages={messages} addMsg={addMsg} />} />
             </Route>
             <Route path="*" element={<h4>404 Error</h4>} />
           </Routes>

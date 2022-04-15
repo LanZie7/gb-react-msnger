@@ -8,22 +8,7 @@ import { ChangeThemeBtn } from "../Example/Example";
 import "./ChatList.styles.css";
 
 
-const chats = [
-    {
-        name: "ReactChat",
-        id: "reactChat",
-    },
-    {
-        name: "VueChat",
-        id: "vueChat",
-    },
-    {
-        name: "AngularChat",
-        id: "angularChat",
-    },
-];
-
-export const ChatList = () => {
+export const ChatList = ({ chats }) => {
   const { changeTheme } = useContext(ThemeContext);
 
   return (
