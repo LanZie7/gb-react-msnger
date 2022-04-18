@@ -36,8 +36,8 @@ export const ChatList = ({ chats, addChat, deleteChat }) => {
 
       <div className="chat-list">
         {chats.map((chat) => (
-          <div className="chat-list-content">
-            <Link className="chat-item" to={`/chat/${chat.id}`} key={chat.id}>
+          <div className="chat-list-content" key={chat.id}>
+            <Link className="chat-item" to={`/chat/${chat.id}`}>
               { chat.name }
             </Link>
             <IconButton
