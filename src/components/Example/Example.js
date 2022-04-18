@@ -1,5 +1,7 @@
 
 // Компонент можно переиспользовать
+import {Button} from "@mui/material";
+
 export const MyButton = ({ text, onclick }) => (
     <div role="button" onClick={ onclick }>
         { text }
@@ -9,9 +11,9 @@ export const MyButton = ({ text, onclick }) => (
 export const ChangeThemeBtn = ({ text, onClick, children }) => {
     console.log(children);
     return (
-      <div role="button" onClick={onClick}>
+      <Button role="button" onClick={onClick}>
           {children}
-      </div>
+      </Button>
     );
 };
 

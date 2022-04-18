@@ -26,6 +26,7 @@ export const ChatList = ({ chats, addChat, deleteChat }) => {
   return (
     <>
       <ChangeThemeBtn
+        variant="text"
         onClick={
           changeTheme
           // setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"))
@@ -35,7 +36,7 @@ export const ChatList = ({ chats, addChat, deleteChat }) => {
 
       <div className="chat-list">
         {chats.map((chat) => (
-          <div>
+          <div className="chat-list-content">
             <Link className="chat-item" to={`/chat/${chat.id}`} key={chat.id}>
               { chat.name }
             </Link>
@@ -43,8 +44,9 @@ export const ChatList = ({ chats, addChat, deleteChat }) => {
               className="deleteBtn"
               aria-label="delete"
               onClick={() => deleteChat(chat.id)}
-            >
+            >Delete
               <DeleteButton
+                style={{ color: "white" }}
                 fontSize="small"
               />
             </IconButton>
