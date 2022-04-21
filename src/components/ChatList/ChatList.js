@@ -8,9 +8,15 @@ import { ChangeThemeBtn } from "../Example/Example";
 
 import "./ChatList.styles.css";
 import {Form} from "../Form/Form";
+import {useDispatch, useSelector} from "react-redux";
+import {selectChats} from "../../store/chats/selectors";
+import {addChat, deleteChat} from "../../store/chats/actions";
+import {clearMessagesForChat, initMessagesForChat} from "../../store/messages/actions";
 
 
-export const ChatList = ({ chats, addChat, deleteChat }) => {
+export const ChatList = () => {
+  const chats = useSelector(selectChats);
+  const dispatch = useDispatch();
   const { changeTheme } = useContext(ThemeContext);
 
   const handleSubmit = (newChatName) => {
@@ -19,8 +25,14 @@ export const ChatList = ({ chats, addChat, deleteChat }) => {
       id: `chat-${Date.now()}`,
     };
 
-    addChat(newChat);
+    dispatch(addChat(newChat));
+    dispatch(initMessagesForChat(newChat.id));
   };
+
+  const handleRemoveChat = (id) => {
+    dispatch(deleteChat(id));
+    dispatch(clearMessagesForChat(id));
+  }
 
 
   return (
@@ -43,7 +55,7 @@ export const ChatList = ({ chats, addChat, deleteChat }) => {
             <IconButton
               className="deleteBtn"
               aria-label="delete"
-              onClick={() => deleteChat(chat.id)}
+              onClick={() => handleRemoveChat(chat.id)}
             >Delete
               <DeleteButton
                 style={{ color: "white" }}
