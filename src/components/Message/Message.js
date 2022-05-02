@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import {Component, useContext} from "react";
+import { Component, useContext } from "react";
 import { ThemeContext } from "../../utils/ThemeContext";
 
 import './Message.styles.css';

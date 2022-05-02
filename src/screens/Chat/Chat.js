@@ -7,7 +7,7 @@ import { theme } from "../../components/Theme/Theme";
 import { Navigate, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { selectMessagesByChatId } from "../../store/messages/selectors";
-import {addMessage, addMessageWithReply} from "../../store/messages/actions";
+import { addMessage, addMessageWithReply } from "../../store/messages/actions";
 
 
 export function Chat() {
