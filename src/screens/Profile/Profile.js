@@ -5,7 +5,7 @@ import { selectName, selectShowName } from "../../store/profile/selectors";
 import { usePrevious } from "../../utils/usePrev";
 
 
-export const Profile = () => {
+export const Profile = ({ onLogout }) => {
   const dispatch = useDispatch();
 
   const name = useSelector(selectName);
@@ -24,6 +24,7 @@ export const Profile = () => {
   return (
     <>
       <h3>Profile</h3>
+      <button onClick={onLogout}>Logout</button>
       {showName && <span>{name}</span>}
       <button onClick={handleClick}>Change name</button>
       <Form onSubmit={handleSubmit} />

@@ -1,10 +1,13 @@
-import {apiUrl, FETCH_STATUSES} from "../../utils/constants";
-import {useEffect, useState} from "react";
-import {CircularProgress} from "@mui/material";
-import {useDispatch, useSelector} from "react-redux";
-import {getArticles} from "../../store/articles/actions";
-import {selectArticles, selectArticlesError, selectArticlesStatus} from "../../store/articles/selectors";
-
+import { CircularProgress } from "@mui/material";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getArticles } from "../../store/articles/actions";
+import {
+  selectArticles,
+  selectArticlesError,
+  selectArticlesStatus,
+} from "../../store/articles/selectors";
+import { apiUrl, FETCH_STATUSES } from "../../utils/constants";
 
 export const Articles = () => {
   const dispatch = useDispatch();
@@ -23,9 +26,8 @@ export const Articles = () => {
   return (
     <>
       <h3>Articles</h3>
-      <button onClick={sendRequest}>Get JsonData</button>
+      <button onClick={sendRequest}>Get</button>
       {status === FETCH_STATUSES.REQUEST && <CircularProgress />}
-      {/*{loading && <CircularProgress />}*/}
       {error && <h4>{error}</h4>}
       <ul>
         {articles.map((article) => (

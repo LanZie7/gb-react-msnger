@@ -1,6 +1,4 @@
 import {ADD_MESSAGE, CLEAR_MESSAGES_FOR_CHAT, INIT_MESSAGES_FOR_CHAT} from "./actions";
-import { ADD_CHAT } from "../chats/actions";
-
 
 const initialState = {};
 
