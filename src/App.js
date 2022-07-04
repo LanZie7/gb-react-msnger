@@ -29,13 +29,14 @@ function App() {
   }
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if(user) {
         handleLogin()
       } else {
         handleLogout()
       }
     });
+    return unsubscribe;
   }, []);
 
   const [theme, setTheme] = useState("dark");

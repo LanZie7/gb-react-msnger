@@ -3,6 +3,7 @@ import { setName, toggleCheckbox } from "../../store/profile/actions";
 import { Form } from "../../components/Form/Form";
 import { selectName, selectShowName } from "../../store/profile/selectors";
 import { usePrevious } from "../../utils/usePrev";
+import {auth, logOut} from "../../services/firebase";
 
 
 export const Profile = ({ onLogout }) => {
@@ -14,9 +15,6 @@ export const Profile = ({ onLogout }) => {
     dispatch(toggleCheckbox);
   };
 
-  const prevName = usePrevious(name);
-  console.log(prevName);
-
   const handleSubmit = (text) => {
     dispatch(setName(text));
   };
@@ -24,7 +22,7 @@ export const Profile = ({ onLogout }) => {
   return (
     <>
       <h3>Profile</h3>
-      <button onClick={onLogout}>Logout</button>
+      <button onClick={logOut}>Logout</button>
       {showName && <span>{name}</span>}
       <button onClick={handleClick}>Change name</button>
       <Form onSubmit={handleSubmit} />
