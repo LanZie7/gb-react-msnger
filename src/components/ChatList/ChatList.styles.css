@@ -5,10 +5,28 @@
     font-family: serif;
 }
 
-.chat-item {
-    line-height: 1.5;
+/*.chat-item {*/
+/*    line-height: 1.5;*/
+/*}*/
+
+.chat-list-content {
+    width: 50%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.deleteBtn {
-    color: firebrick;
+.deleteBtn.MuiButtonBase-root {
+    font-size: small;
+    height: 30px;
+    border-radius: 12px;
+    color: floralwhite;
+    background-color: firebrick;
+}
+
+.deleteBtn.MuiButtonBase-root:hover {
+    transition-duration: 0.2s;
+    background-color: darkred;
 }

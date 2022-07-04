@@ -1,43 +1,51 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { AUTHORS } from "../../utils/constants";
 import { MessageList } from "../../components/MessageList/MessageList";
 import { Form } from "../../components/Form/Form";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "../../components/Theme/Theme";
-import { ChatList } from "../../components/ChatList/ChatList";
 import { Navigate, useParams } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { selectMessagesByChatId } from "../../store/messages/selectors";
+import { addMessage } from "../../store/messages/actions";
 
 
-export function Chat({ messages, addMsg }) {
+export function Chat() {
 
     const { id } = useParams();
-    // const [ messages, setMsgs ] = useState(initMsgs);
+
+    const getMessages = useMemo(() => selectMessagesByChatId(id), [id]);
+    const messages = useSelector(getMessages);
+    const dispatch = useDispatch();
+
 
     const timeout = useRef();
     const wrapperRef = useRef();
 
-
-
     const sendMsg = (sendText) => {
-        addMsg(
-          {
-            author: AUTHORS.person,
-            text: sendText,
-            id: `msg-${Date.now()}`,
-          }, id
-        );
+        dispatch(
+            addMessage(
+              {
+                author: AUTHORS.person,
+                text: sendText,
+                id: `msg-${Date.now()}`,
+              }, id
+            )
+        )
     };
 
     useEffect(() => {
-        const lastMsg = messages[id]?.[messages[id]?.length - 1];
+        const lastMsg = messages?.[messages?.length - 1];
         if (lastMsg?.author === AUTHORS.person) {
             timeout.current = setTimeout(() => {
-                addMsg(
-                  {
-                    author: AUTHORS.robot,
-                    text: "Hello, " + AUTHORS.person + "!" ,
-                    id: `msg-${Date.now()}`,
-                  }, id
+                dispatch(
+                  addMessage(
+                      {
+                        author: AUTHORS.robot,
+                        text: "Hello, " + AUTHORS.person + "!" ,
+                        id: `msg-${Date.now()}`,
+                      }, id
+                    )
                 );
             }, 1000);
         }
@@ -47,8 +55,8 @@ export function Chat({ messages, addMsg }) {
         };
     }, [messages]);
 
-    if (!messages[id]) {
-        return <Navigate to="/chats" replace />
+    if (!messages) {
+        return <Navigate to="/chat" replace />
     }
 
     // const handleScroll = () => {
@@ -59,7 +67,7 @@ export function Chat({ messages, addMsg }) {
     return (
         <ThemeProvider theme={theme}>
             <div className="App" ref={ wrapperRef } style={{ overflow: "auto", margin: "20px" }}>
-                <MessageList messages={ messages[id] } />
+                <MessageList messages={messages} />
                 <Form onSubmit={ sendMsg } />
                 {/*<button onClick={ handleScroll }>Scroll</button>*/}
             </div>
