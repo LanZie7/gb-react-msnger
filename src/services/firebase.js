@@ -1,8 +1,8 @@
 import {
-  getAuth,
-  signOut,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
+  getAuth,
 } from "firebase/auth";
 
 
@@ -15,6 +15,7 @@ import { initializeApp } from "firebase/app";
 const firebaseConfig = {
   apiKey: "AIzaSyD8vVIoAoBHCid8sYjycuuWsR-JcgXFdtM",
   authDomain: "gb-react-msnger.firebaseapp.com",
+  databaseURL: "https://gb-react-msnger-default-rtdb.firebaseio.com",
   projectId: "gb-react-msnger",
   storageBucket: "gb-react-msnger.appspot.com",
   messagingSenderId: "260443459073",
@@ -28,12 +29,12 @@ export const auth = getAuth(app);
 
 export const signUp = async (email, pass) => {
   await createUserWithEmailAndPassword(auth, email, pass);
-}
+};
 
 export const logIn = async (email, pass) => {
   await signInWithEmailAndPassword(auth, email, pass);
-}
+};
 
 export const logOut = async () => {
   await signOut(auth);
-}
+};

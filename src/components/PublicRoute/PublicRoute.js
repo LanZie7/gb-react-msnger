@@ -1,5 +1,4 @@
-import {Navigate, Outlet} from "react-router";
+import { Navigate, Outlet } from "react-router";
 
-export const PublicRoute = ({ authed }) => (
-  !authed ? <Outlet /> : <Navigate to="/" replace />
-)
+export const PublicRoute = ({ authed }) =>
+  !authed ? <Outlet /> : <Navigate to="/profile" replace />;

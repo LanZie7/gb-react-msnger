@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { BrowserRouter, Route, NavLink } from "react-router-dom";
 
 import { Routes } from "react-router";
@@ -13,6 +13,9 @@ import './App.css';
 import {PrivateRoute} from "./components/PrivateRoute/PrivateRoute";
 import {PublicRoute} from "./components/PublicRoute/PublicRoute";
 
+import { onAuthStateChanged } from "@firebase/auth";
+import { auth } from "./services/firebase";
+
 
 function App() {
 
@@ -24,6 +27,16 @@ function App() {
   const handleLogout = () => {
     setAuthed(false);
   }
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if(user) {
+        handleLogin()
+      } else {
+        handleLogout()
+      }
+    });
+  }, []);
 
   const [theme, setTheme] = useState("dark");
 
@@ -71,10 +84,7 @@ function App() {
         <Routes>
           <Route path="/" element={<PublicRoute authed={authed} />}>
             <Route path="" element={<Home onAuth={handleLogin} />} />
-            <Route
-              path="signup"
-              element={<Home onAuth={handleLogin} isSignUp />}
-            />
+            <Route path="signup" element={<Home onAuth={handleLogin} isSignUp />}/>
           </Route>
 
           <Route path="/profile" element={<PrivateRoute authed={authed} />}>
