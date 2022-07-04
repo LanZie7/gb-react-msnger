@@ -1,6 +1,6 @@
-import './Message.styles.css';
-
 import PropTypes from 'prop-types';
+
+import './Message.styles.css';
 
 
 export const Message = ({ author, text }) => {

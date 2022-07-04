@@ -1,12 +1,7 @@
-import { AUTHORS } from "../../utils/constants";
+import { Message } from "../Message/Message";
+
 import "./MessageList.styles.css";
 
-export const MessageList = ({ messages }) => (
-    <div className="messageList">
-        {messages.map(({ text, author }) => (
-            <div className={ author === AUTHORS.person ? "person-msg" : "bot-msg" }>
-                { author }: { text }
-            </div>
-        ))}
-    </div>
-);
+
+export const MessageList = ({ messages }) => messages.map((msg) =>
+  <Message className="messageList" key={msg.id} text={msg.text} author={msg.author} />);

@@ -1,4 +1,6 @@
 import "./ChatList.styles.css";
+import { Link } from "react-router-dom";
+import { Outlet } from "react-router";
 
 
 const chats = [
@@ -20,8 +22,11 @@ export const ChatList = () => (
     <>
         <div className="chat-list">
             {chats.map((chat) =>
-                <div className="chat-item" key={chat.id}>{chat.name}</div>
+                <Link className="chat-item" to={`/chat/${chat.id}`} key={chat.id}>
+                    { chat.name }
+                </Link>
             )}
         </div>
+        <Outlet />
     </>
 );
