@@ -1,0 +1,17 @@
+.msgForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    bottom: 0;
+    z-index: 1;
+    background-color: white;
+    width: 100%;
+    position: fixed;
+
+}
+
+.sendBtn.MuiButton-root {
+    margin-left: 10px;
+}

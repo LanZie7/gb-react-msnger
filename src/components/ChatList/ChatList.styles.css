@@ -1,0 +1,10 @@
+.chat-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-family: serif;
+}
+
+.chat-item {
+    line-height: 1.5;
+}
