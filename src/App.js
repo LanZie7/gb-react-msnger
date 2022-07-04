@@ -7,6 +7,7 @@ import { Chat } from "./screens/Chat/Chat";
 import { Profile } from "./screens/Profile/Profile";
 import { ThemeContext } from "./utils/ThemeContext";
 import { Home } from "./screens/Home/Home";
+import { Articles } from "./screens/Articles/Articles";
 
 import './App.css';
 
@@ -46,10 +47,19 @@ function App() {
               Chats
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              to="articles"
+              style={({ isActive }) => ({ color: isActive ? "#757de8" : "#534bae" })}
+            >
+              Articles
+            </NavLink>
+          </li>
         </ul>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/articles" element={<Articles />} />
           <Route path="/chat" element={<ChatList />}>
             <Route path=":id" element={<Chat />} />
           </Route>
