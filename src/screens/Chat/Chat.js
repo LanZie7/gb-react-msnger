@@ -7,7 +7,7 @@ import { theme } from "../../components/Theme/Theme";
 import { Navigate, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { selectMessagesByChatId } from "../../store/messages/selectors";
-import { addMessage } from "../../store/messages/actions";
+import { addMessage, addMessageWithReply } from "../../store/messages/actions";
 
 
 export function Chat() {
@@ -24,7 +24,7 @@ export function Chat() {
 
     const sendMsg = (sendText) => {
         dispatch(
-            addMessage(
+            addMessageWithReply(
               {
                 author: AUTHORS.person,
                 text: sendText,
@@ -34,30 +34,30 @@ export function Chat() {
         )
     };
 
-    useEffect(() => {
-        const lastMsg = messages?.[messages?.length - 1];
-        if (lastMsg?.author === AUTHORS.person) {
-            timeout.current = setTimeout(() => {
-                dispatch(
-                  addMessage(
-                      {
-                        author: AUTHORS.robot,
-                        text: "Hello, " + AUTHORS.person + "!" ,
-                        id: `msg-${Date.now()}`,
-                      }, id
-                    )
-                );
-            }, 1000);
-        }
-
-        return () => {
-            clearTimeout(timeout.current);
-        };
-    }, [messages]);
-
-    if (!messages) {
-        return <Navigate to="/chat" replace />
-    }
+    // useEffect(() => {
+    //     const lastMsg = messages?.[messages?.length - 1];
+    //     if (lastMsg?.author === AUTHORS.person) {
+    //         timeout.current = setTimeout(() => {
+    //             dispatch(
+    //               addMessage(
+    //                   {
+    //                     author: AUTHORS.robot,
+    //                     text: "Hello, " + AUTHORS.person + "!" ,
+    //                     id: `msg-${Date.now()}`,
+    //                   }, id
+    //                 )
+    //             );
+    //         }, 1000);
+    //     }
+    //
+    //     return () => {
+    //         clearTimeout(timeout.current);
+    //     };
+    // }, [messages]);
+    //
+    // if (!messages) {
+    //     return <Navigate to="/chat" replace />
+    // }
 
     // const handleScroll = () => {
     //     wrapperRef.current?.scrollTo({ x: 0, y: 0 });
