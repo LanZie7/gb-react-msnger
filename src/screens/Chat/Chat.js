@@ -8,57 +8,37 @@ import { ChatList } from "../../components/ChatList/ChatList";
 import { Navigate, useParams } from "react-router";
 
 
-const chats = [
-    {
-        name: "ReactChat",
-        id: "reactChat",
-    },
-    {
-        name: "VueChat",
-        id: "vueChat",
-    },
-    {
-        name: "AngularChat",
-        id: "angularChat",
-    },
-];
-
-const initMsgs = {
-    reactChat: [],
-    vueChat: [],
-    angularChat: [],
-};
-
-
-export function Chat() {
+export function Chat({ messages, addMsg }) {
 
     const { id } = useParams();
-    const [ messages, setMsgs ] = useState(initMsgs);
+    // const [ messages, setMsgs ] = useState(initMsgs);
 
     const timeout = useRef();
     const wrapperRef = useRef();
 
-    const addMsg = (addText) => {
-        setMsgs({...messages, [id]: [...messages[id], addText] });
-    };
+
 
     const sendMsg = (sendText) => {
-        addMsg({
+        addMsg(
+          {
             author: AUTHORS.person,
             text: sendText,
             id: `msg-${Date.now()}`,
-        });
+          }, id
+        );
     };
 
     useEffect(() => {
         const lastMsg = messages[id]?.[messages[id]?.length - 1];
         if (lastMsg?.author === AUTHORS.person) {
             timeout.current = setTimeout(() => {
-                addMsg({
+                addMsg(
+                  {
                     author: AUTHORS.robot,
                     text: "Hello, " + AUTHORS.person + "!" ,
                     id: `msg-${Date.now()}`,
-                });
+                  }, id
+                );
             }, 1000);
         }
 

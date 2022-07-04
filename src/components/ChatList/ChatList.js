@@ -1,32 +1,58 @@
+import { Link, Outlet } from "react-router-dom";
+import { useContext } from "react";
+import { ThemeContext } from "../../utils/ThemeContext";
+import { IconButton } from '@mui/material';
+import DeleteButton from '@mui/icons-material/Delete';
+
+import { ChangeThemeBtn } from "../Example/Example";
+
 import "./ChatList.styles.css";
-import { Link } from "react-router-dom";
-import { Outlet } from "react-router";
+import {Form} from "../Form/Form";
 
 
-const chats = [
-    {
-        name: "ReactChat",
-        id: "reactChat",
-    },
-    {
-        name: "VueChat",
-        id: "vueChat",
-    },
-    {
-        name: "AngularChat",
-        id: "angularChat",
-    },
-];
+export const ChatList = ({ chats, addChat, deleteChat }) => {
+  const { changeTheme } = useContext(ThemeContext);
 
-export const ChatList = () => (
+  const handleSubmit = (newChatName) => {
+    const newChat = {
+      name: newChatName,
+      id: `chat-${Date.now()}`,
+    };
+
+    addChat(newChat);
+  };
+
+
+  return (
     <>
-        <div className="chat-list">
-            {chats.map((chat) =>
-                <Link className="chat-item" to={`/chat/${chat.id}`} key={chat.id}>
-                    { chat.name }
-                </Link>
-            )}
-        </div>
-        <Outlet />
+      <ChangeThemeBtn
+        onClick={
+          changeTheme
+          // setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"))
+        }
+      >Change Theme
+      </ChangeThemeBtn>
+
+      <div className="chat-list">
+        {chats.map((chat) => (
+          <div>
+            <Link className="chat-item" to={`/chat/${chat.id}`} key={chat.id}>
+              { chat.name }
+            </Link>
+            <IconButton
+              className="deleteBtn"
+              aria-label="delete"
+              onClick={() => deleteChat(chat.id)}
+            >
+              <DeleteButton
+                fontSize="small"
+              />
+            </IconButton>
+          </div>
+        ))}
+      </div>
+      <Form onSubmit={handleSubmit} />
+      <Outlet />
     </>
-);
+  );
+}
