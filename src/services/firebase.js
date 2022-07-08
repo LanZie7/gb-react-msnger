@@ -4,6 +4,7 @@ import {
   signOut,
   getAuth,
 } from "firebase/auth";
+import { getDatabase, ref } from "firebase/database";
 
 
 // Import the functions you need from the SDKs you need
@@ -26,6 +27,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
+export const db = getDatabase(app);
 
 export const signUp = async (email, pass) => {
   await createUserWithEmailAndPassword(auth, email, pass);
@@ -38,3 +40,7 @@ export const logIn = async (email, pass) => {
 export const logOut = async () => {
   await signOut(auth);
 };
+
+export const userRef = ref(db, "user");
+export const userNameRef = ref(db, "user/name");
+export const userShowNameRef = ref(db, "user/showName");

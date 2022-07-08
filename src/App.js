@@ -36,7 +36,7 @@ function App() {
         handleLogout()
       }
     });
-    return unsubscribe;
+    return () => unsubscribe();
   }, []);
 
   const [theme, setTheme] = useState("dark");
